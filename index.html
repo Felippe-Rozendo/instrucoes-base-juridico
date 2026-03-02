@@ -20,8 +20,6 @@
   --shadow: 0 4px 24px rgba(10,25,49,0.10);
 }
 body { font-family: 'Segoe UI', sans-serif; background: var(--bg); display: flex; height: 100vh; overflow: hidden; }
-
-/* SIDEBAR */
 .sidebar { width: 220px; min-width: 220px; background: var(--navy); display: flex; flex-direction: column; padding: 32px 0; }
 .sidebar-logo { font-size: 22px; font-weight: 700; padding: 0 28px 32px; color: #fff; letter-spacing: -0.5px; }
 .sidebar-logo span { color: var(--blue-light); }
@@ -30,8 +28,6 @@ body { font-family: 'Segoe UI', sans-serif; background: var(--bg); display: flex
 .nav-item.active { color: #fff; background: rgba(74,127,167,0.25); border-left-color: var(--blue-mid); }
 .nav-item svg { width: 18px; height: 18px; flex-shrink: 0; }
 .sidebar-footer { padding: 20px 28px; font-size: 11px; color: rgba(255,255,255,0.3); line-height: 1.6; margin-top: auto; }
-
-/* MAIN */
 .main { flex: 1; display: flex; flex-direction: column; overflow: hidden; }
 .topbar { background: var(--white); padding: 0 32px; height: 64px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid rgba(179,207,229,0.4); flex-shrink: 0; }
 .topbar-title h1 { font-size: 20px; font-weight: 700; color: var(--navy); }
@@ -40,8 +36,6 @@ body { font-family: 'Segoe UI', sans-serif; background: var(--bg); display: flex
 .btn-new { background: var(--blue-dark); color: #fff; border: none; padding: 9px 20px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; display: flex; align-items: center; gap: 8px; transition: background .2s; }
 .btn-new:hover { background: var(--blue-mid); }
 .avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--blue-light); display: flex; align-items: center; justify-content: center; font-weight: 700; color: var(--blue-dark); font-size: 13px; }
-
-/* PAGES */
 .page { display: none; flex: 1; overflow-y: auto; padding: 28px 32px; }
 .page.active { display: block; }
 
@@ -56,12 +50,16 @@ body { font-family: 'Segoe UI', sans-serif; background: var(--bg); display: flex
 
 /* TABLE */
 .table-card { background: var(--white); border-radius: var(--radius); box-shadow: var(--shadow); overflow: hidden; }
-.table-head { display: grid; grid-template-columns: 60px 180px 1fr 120px 130px 100px; padding: 14px 20px; background: var(--bg); border-bottom: 1px solid rgba(179,207,229,0.4); font-size: 12px; font-weight: 700; color: var(--blue-mid); text-transform: uppercase; letter-spacing: .5px; }
-.table-row { display: grid; grid-template-columns: 60px 180px 1fr 120px 130px 100px; padding: 16px 20px; border-bottom: 1px solid rgba(179,207,229,0.25); align-items: center; transition: background .15s; cursor: pointer; }
+.table-head { display: grid; padding: 14px 20px; background: var(--bg); border-bottom: 1px solid rgba(179,207,229,0.4); font-size: 12px; font-weight: 700; color: var(--blue-mid); text-transform: uppercase; letter-spacing: .5px; }
+.table-head.instrucoes-cols { grid-template-columns: 60px 180px 1fr 120px 130px 100px; }
+.table-head.tipos-cols { grid-template-columns: 60px 1fr 140px 100px; }
+.table-row { display: grid; padding: 16px 20px; border-bottom: 1px solid rgba(179,207,229,0.25); align-items: center; transition: background .15s; cursor: pointer; }
+.table-row.instrucoes-cols { grid-template-columns: 60px 180px 1fr 120px 130px 100px; }
+.table-row.tipos-cols { grid-template-columns: 60px 1fr 140px 100px; }
 .table-row:hover { background: rgba(246,250,253,0.8); }
 .table-row:last-child { border-bottom: none; }
 .row-id { font-size: 12px; font-weight: 700; color: var(--blue-mid); }
-.row-tipo { font-size: 13px; font-weight: 600; color: var(--navy); }
+.row-nome { font-size: 13px; font-weight: 600; color: var(--navy); }
 .row-instrucao { font-size: 12px; color: #6b7280; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; padding-right: 16px; }
 .row-actions { display: flex; gap: 8px; align-items: center; }
 .status-badge { display: inline-flex; align-items: center; gap: 5px; font-size: 11px; font-weight: 600; padding: 4px 10px; border-radius: 20px; }
@@ -96,8 +94,14 @@ body { font-family: 'Segoe UI', sans-serif; background: var(--bg); display: flex
 .field-label { display: block; font-size: 12px; font-weight: 700; color: var(--blue-dark); margin-bottom: 6px; text-transform: uppercase; letter-spacing: .4px; }
 .field-input { width: 100%; border: 1.5px solid var(--blue-light); border-radius: 8px; padding: 10px 14px; font-size: 14px; color: var(--navy); background: var(--white); outline: none; transition: border-color .2s; font-family: inherit; -webkit-appearance: none; }
 .field-input:focus { border-color: var(--blue-mid); box-shadow: 0 0 0 3px rgba(74,127,167,0.12); }
+.field-input.error { border-color: var(--red); box-shadow: 0 0 0 3px rgba(231,76,60,0.1); }
 textarea.field-input { resize: vertical; min-height: 160px; line-height: 1.6; }
 .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.field-error { font-size: 11px; color: var(--red); margin-top: 5px; display: none; }
+.field-error.show { display: block; }
+.field-preview { font-size: 11px; color: var(--blue-mid); margin-top: 5px; }
+
+/* FILE UPLOAD */
 .file-upload-area { border: 2px dashed var(--blue-light); border-radius: 8px; padding: 20px; text-align: center; cursor: pointer; transition: all .2s; background: rgba(246,250,253,0.8); }
 .file-upload-area:hover { border-color: var(--blue-mid); background: rgba(74,127,167,0.05); }
 .file-upload-area p { font-size: 13px; color: var(--blue-mid); }
@@ -127,6 +131,16 @@ textarea.field-input { resize: vertical; min-height: 160px; line-height: 1.6; }
 .file-link { display: inline-flex; align-items: center; gap: 6px; color: var(--blue-mid); font-size: 12px; text-decoration: none; padding: 5px 10px; background: rgba(74,127,167,0.08); border-radius: 6px; margin: 3px 0; transition: background .2s; }
 .file-link:hover { background: rgba(74,127,167,0.18); }
 
+/* TIPOS — GRID DE CARDS */
+.tipos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin-top: 4px; }
+.tipo-card { background: var(--white); border-radius: var(--radius); padding: 16px 18px; box-shadow: var(--shadow); display: flex; align-items: center; justify-content: space-between; gap: 10px; border: 1.5px solid transparent; transition: border-color .2s; }
+.tipo-card:hover { border-color: var(--blue-light); }
+.tipo-card-name { font-size: 14px; font-weight: 600; color: var(--navy); flex: 1; }
+.tipo-card-badge { font-size: 10px; color: var(--blue-mid); background: rgba(74,127,167,0.1); padding: 2px 8px; border-radius: 10px; font-weight: 600; flex-shrink: 0; }
+.tipo-card-actions { display: flex; gap: 6px; flex-shrink: 0; }
+.tipo-card.tem-instrucao { border-left: 3px solid var(--green); }
+.tipo-card.sem-instrucao { border-left: 3px solid var(--blue-light); }
+
 /* DASHBOARD */
 .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
 .stat-card { background: var(--white); border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow); }
@@ -140,7 +154,7 @@ textarea.field-input { resize: vertical; min-height: 160px; line-height: 1.6; }
 .chart-card { background: var(--white); border-radius: var(--radius); padding: 20px; box-shadow: var(--shadow); }
 .chart-card h3 { font-size: 14px; font-weight: 700; color: var(--navy); margin-bottom: 16px; }
 .bar-item { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
-.bar-label { font-size: 12px; color: #6b7280; width: 110px; flex-shrink: 0; }
+.bar-label { font-size: 12px; color: #6b7280; width: 130px; flex-shrink: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .bar-track { flex: 1; height: 8px; background: var(--bg); border-radius: 4px; overflow: hidden; }
 .bar-fill { height: 100%; border-radius: 4px; background: var(--blue-mid); transition: width .6s ease; }
 .bar-count { font-size: 12px; font-weight: 700; color: var(--navy); width: 20px; text-align: right; }
@@ -151,7 +165,7 @@ textarea.field-input { resize: vertical; min-height: 160px; line-height: 1.6; }
 .donut-val { font-size: 13px; font-weight: 700; color: var(--navy); }
 .donut-pct { font-size: 11px; color: #9ca3af; }
 
-/* CONFIG — DUAS COLUNAS */
+/* CONFIG */
 .config-columns { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 24px; }
 .config-col { background: var(--white); border-radius: var(--radius); padding: 24px; box-shadow: var(--shadow); }
 .config-col-header { display: flex; align-items: center; gap: 10px; margin-bottom: 6px; }
@@ -177,8 +191,6 @@ textarea.field-input { resize: vertical; min-height: 160px; line-height: 1.6; }
 .loading { display: flex; align-items: center; justify-content: center; padding: 50px; gap: 10px; color: var(--blue-mid); font-size: 13px; }
 .spinner { width: 20px; height: 20px; border: 2px solid var(--blue-light); border-top-color: var(--blue-mid); border-radius: 50%; animation: spin .8s linear infinite; flex-shrink: 0; }
 @keyframes spin { to { transform: rotate(360deg); } }
-
-/* TOAST */
 .toast { position: fixed; bottom: 24px; left: 50%; transform: translateX(-50%) translateY(80px); background: var(--navy); color: #fff; padding: 12px 24px; border-radius: 10px; font-size: 13px; font-weight: 500; transition: transform .3s ease; z-index: 200; white-space: nowrap; pointer-events: none; }
 .toast.show { transform: translateX(-50%) translateY(0); }
 .toast.success { border-left: 4px solid var(--green); }
@@ -188,7 +200,6 @@ textarea.field-input { resize: vertical; min-height: 160px; line-height: 1.6; }
 </head>
 <body>
 
-<!-- SIDEBAR -->
 <aside class="sidebar">
   <div class="sidebar-logo">e<span>Jurídico</span></div>
   <nav>
@@ -200,6 +211,10 @@ textarea.field-input { resize: vertical; min-height: 160px; line-height: 1.6; }
       <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414A1 1 0 0121 9.414V19a2 2 0 01-2 2z"/></svg>
       Instruções
     </div>
+    <div class="nav-item" id="nav-tipos" onclick="showPage('tipos')">
+      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A2 2 0 013 12V7a4 4 0 014-4z"/></svg>
+      Tipos
+    </div>
     <div class="nav-item" id="nav-config" onclick="showPage('config')">
       <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><circle cx="12" cy="12" r="3" stroke-width="2"/></svg>
       Configurações
@@ -208,7 +223,6 @@ textarea.field-input { resize: vertical; min-height: 160px; line-height: 1.6; }
   <div class="sidebar-footer">Firebase Firestore<br>Firebase Storage · R2</div>
 </aside>
 
-<!-- MAIN -->
 <main class="main">
   <header class="topbar">
     <div class="topbar-title">
@@ -216,9 +230,9 @@ textarea.field-input { resize: vertical; min-height: 160px; line-height: 1.6; }
       <p id="page-subtitle">Carregando...</p>
     </div>
     <div class="topbar-actions">
-      <button class="btn-new" id="btn-new" onclick="openModal('create')">
+      <button class="btn-new" id="btn-new" onclick="handleNewBtn()">
         <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
-        Nova Instrução
+        <span id="btn-new-label">Nova Instrução</span>
       </button>
       <div class="avatar">AD</div>
     </div>
@@ -239,7 +253,7 @@ textarea.field-input { resize: vertical; min-height: 160px; line-height: 1.6; }
       </div>
     </div>
     <div class="table-card">
-      <div class="table-head">
+      <div class="table-head instrucoes-cols">
         <span>#</span><span>Tipo de Processo</span><span>Instrução</span><span>Arquivos</span><span>Status</span><span>Ações</span>
       </div>
       <div id="table-body">
@@ -252,13 +266,31 @@ textarea.field-input { resize: vertical; min-height: 160px; line-height: 1.6; }
     </div>
   </div>
 
+  <!-- PAGE: TIPOS -->
+  <div class="page" id="page-tipos">
+    <div class="filter-bar">
+      <div style="font-size:13px;color:#6b7280">
+        <span id="tipos-count">—</span> tipos cadastrados &nbsp;·&nbsp;
+        <span style="color:var(--green);font-weight:600" id="tipos-com-instrucao">—</span> com instrução &nbsp;·&nbsp;
+        <span style="color:var(--blue-mid);font-weight:600" id="tipos-sem-instrucao">—</span> sem instrução
+      </div>
+      <div class="search-box">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="11" cy="11" r="8" stroke-width="2"/><path d="m21 21-4.35-4.35" stroke-width="2"/></svg>
+        <input type="text" placeholder="Buscar tipo..." oninput="searchTipos(this.value)">
+      </div>
+    </div>
+    <div id="tipos-grid" class="tipos-grid">
+      <div class="loading"><div class="spinner"></div> Carregando...</div>
+    </div>
+  </div>
+
   <!-- PAGE: DASHBOARD -->
   <div class="page" id="page-dashboard">
     <div class="stats-grid">
       <div class="stat-card"><div class="stat-icon blue"><svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414A1 1 0 0121 9.414V19a2 2 0 01-2 2z"/></svg></div><div class="stat-value" id="stat-total">—</div><div class="stat-label">Total de Instruções</div></div>
       <div class="stat-card"><div class="stat-icon green"><svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2" d="M5 13l4 4L19 7"/></svg></div><div class="stat-value" id="stat-ativas">—</div><div class="stat-label">Ativas</div></div>
       <div class="stat-card"><div class="stat-icon orange"><svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></div><div class="stat-value" id="stat-rascunhos">—</div><div class="stat-label">Rascunhos</div></div>
-      <div class="stat-card"><div class="stat-icon blue"><svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/></svg></div><div class="stat-value" id="stat-arquivos">—</div><div class="stat-label">Arquivos Base</div></div>
+      <div class="stat-card"><div class="stat-icon blue"><svg width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A2 2 0 013 12V7a4 4 0 014-4z"/></svg></div><div class="stat-value" id="stat-tipos">—</div><div class="stat-label">Tipos Cadastrados</div></div>
     </div>
     <div class="charts-row">
       <div class="chart-card"><h3>Instruções por Tipo de Processo</h3><div id="chart-tipos"><p style="color:#9ca3af;font-size:13px">Sem dados</p></div></div>
@@ -268,11 +300,7 @@ textarea.field-input { resize: vertical; min-height: 160px; line-height: 1.6; }
 
   <!-- PAGE: CONFIGURAÇÕES -->
   <div class="page" id="page-config">
-
-    <!-- DUAS COLUNAS: Firebase | R2 -->
     <div class="config-columns">
-
-      <!-- COLUNA FIREBASE -->
       <div class="config-col">
         <div class="config-col-header">
           <svg width="20" height="20" viewBox="0 0 32 32" fill="none"><path d="M5.5 25.5L10.5 5l6.5 12L19.5 11l7 14.5z" fill="#FFA000"/><path d="M5.5 25.5l5-3.5 3 3.5z" fill="#F57F17"/><path d="M19.5 11l7 14.5-9.5-8z" fill="#FFCA28"/><path d="M10.5 5l6 16.5-3-8z" fill="#FF8F00"/></svg>
@@ -280,106 +308,56 @@ textarea.field-input { resize: vertical; min-height: 160px; line-height: 1.6; }
           <span class="config-badge nok" id="badge-firebase"><span class="badge-dot"></span><span id="badge-firebase-text">Desconectado</span></span>
         </div>
         <p class="config-col-desc">Console Firebase → Configurações do Projeto → Seus apps → Web → SDK snippet</p>
-
-        <div class="config-field">
-          <div class="field-label">API Key</div>
-          <input class="field-input" type="text" id="fb-apiKey" autocomplete="off" autocorrect="off" spellcheck="false" placeholder="AIzaSy...">
-        </div>
-        <div class="config-field">
-          <div class="field-label">Auth Domain</div>
-          <input class="field-input" type="text" id="fb-authDomain" autocomplete="off" placeholder="projeto.firebaseapp.com">
-        </div>
-        <div class="config-field">
-          <div class="field-label">Project ID</div>
-          <input class="field-input" type="text" id="fb-projectId" autocomplete="off" placeholder="meu-projeto-id">
-        </div>
-        <div class="config-field">
-          <div class="field-label">Storage Bucket</div>
-          <input class="field-input" type="text" id="fb-storageBucket" autocomplete="off" placeholder="meu-projeto.appspot.com">
-        </div>
-        <div class="config-field">
-          <div class="field-label">Messaging Sender ID</div>
-          <input class="field-input" type="text" id="fb-messagingSenderId" autocomplete="off" placeholder="123456789012">
-        </div>
-        <div class="config-field">
-          <div class="field-label">App ID</div>
-          <input class="field-input" type="text" id="fb-appId" autocomplete="off" placeholder="1:123:web:abc...">
-        </div>
-
+        <div class="config-field"><div class="field-label">API Key</div><input class="field-input" type="text" id="fb-apiKey" autocomplete="off" spellcheck="false" placeholder="AIzaSy..."></div>
+        <div class="config-field"><div class="field-label">Auth Domain</div><input class="field-input" type="text" id="fb-authDomain" autocomplete="off" placeholder="projeto.firebaseapp.com"></div>
+        <div class="config-field"><div class="field-label">Project ID</div><input class="field-input" type="text" id="fb-projectId" autocomplete="off" placeholder="meu-projeto-id"></div>
+        <div class="config-field"><div class="field-label">Storage Bucket</div><input class="field-input" type="text" id="fb-storageBucket" autocomplete="off" placeholder="meu-projeto.appspot.com"></div>
+        <div class="config-field"><div class="field-label">Messaging Sender ID</div><input class="field-input" type="text" id="fb-messagingSenderId" autocomplete="off" placeholder="123456789012"></div>
+        <div class="config-field"><div class="field-label">App ID</div><input class="field-input" type="text" id="fb-appId" autocomplete="off" placeholder="1:123:web:abc..."></div>
         <div class="config-actions">
           <button class="btn-cancel" onclick="clearFirebase()">Limpar</button>
-          <button class="btn-save" onclick="saveFirebase()">
-            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-            Salvar e Conectar
-          </button>
+          <button class="btn-save" onclick="saveFirebase()"><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>Salvar e Conectar</button>
         </div>
       </div>
-
-      <!-- COLUNA R2 -->
       <div class="config-col">
         <div class="config-col-header">
           <svg width="20" height="20" viewBox="0 0 32 32" fill="none"><rect width="32" height="32" rx="6" fill="#F6821F"/><text x="5" y="22" font-size="14" font-weight="800" fill="white" font-family="sans-serif">R2</text></svg>
           <h3>Cloudflare R2</h3>
           <span class="config-badge warn" id="badge-r2"><span class="badge-dot"></span><span id="badge-r2-text">Opcional</span></span>
         </div>
-        <p class="config-col-desc">Cloudflare Dashboard → R2 → Manage R2 API Tokens → Create API Token. Use para armazenar arquivos no R2 em vez do Firebase Storage.</p>
-
-        <div class="config-field">
-          <div class="field-label">Account ID</div>
-          <input class="field-input" type="text" id="r2-accountId" autocomplete="off" placeholder="abc123def456...">
-        </div>
-        <div class="config-field">
-          <div class="field-label">Access Key ID</div>
-          <input class="field-input" type="text" id="r2-accessKeyId" autocomplete="off" placeholder="...">
-        </div>
-        <div class="config-field">
-          <div class="field-label">Secret Access Key</div>
-          <input class="field-input" type="password" id="r2-secretAccessKey" autocomplete="new-password" placeholder="...">
-        </div>
-        <div class="config-field">
-          <div class="field-label">Bucket Name</div>
-          <input class="field-input" type="text" id="r2-bucketName" autocomplete="off" placeholder="meu-bucket">
-        </div>
-        <div class="config-field">
-          <div class="field-label">URL Pública do Bucket</div>
-          <input class="field-input" type="text" id="r2-publicUrl" autocomplete="off" placeholder="https://pub-xxx.r2.dev">
-        </div>
-        <div style="background:rgba(243,156,18,0.08);border-left:3px solid var(--orange);border-radius:6px;padding:10px 12px;margin-top:14px;font-size:11px;color:#92690a;line-height:1.5">
-          ⚠️ As credenciais R2 ficam no localStorage. Use apenas em ambiente interno/controlado. Para produção com acesso público, use um Cloudflare Worker como proxy de upload.
-        </div>
-
+        <p class="config-col-desc">Dashboard Cloudflare → R2 → Manage R2 API Tokens → Create API Token. Use para armazenar arquivos no R2 em vez do Firebase Storage.</p>
+        <div class="config-field"><div class="field-label">Account ID</div><input class="field-input" type="text" id="r2-accountId" autocomplete="off" placeholder="abc123def456..."></div>
+        <div class="config-field"><div class="field-label">Access Key ID</div><input class="field-input" type="text" id="r2-accessKeyId" autocomplete="off" placeholder="..."></div>
+        <div class="config-field"><div class="field-label">Secret Access Key</div><input class="field-input" type="password" id="r2-secretAccessKey" autocomplete="new-password" placeholder="..."></div>
+        <div class="config-field"><div class="field-label">Bucket Name</div><input class="field-input" type="text" id="r2-bucketName" autocomplete="off" placeholder="meu-bucket"></div>
+        <div class="config-field"><div class="field-label">URL Pública do Bucket</div><input class="field-input" type="text" id="r2-publicUrl" autocomplete="off" placeholder="https://pub-xxx.r2.dev"></div>
+        <div style="background:rgba(243,156,18,0.08);border-left:3px solid var(--orange);border-radius:6px;padding:10px 12px;margin-top:14px;font-size:11px;color:#92690a;line-height:1.5">⚠️ Credenciais ficam no localStorage. Uso apenas em ambiente interno. Configure CORS no bucket R2 para permitir seu domínio.</div>
         <div class="config-actions">
           <button class="btn-cancel" onclick="clearR2()">Limpar</button>
-          <button class="btn-save" onclick="saveR2()">
-            <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
-            Salvar R2
-          </button>
+          <button class="btn-save" onclick="saveR2()"><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>Salvar R2</button>
         </div>
       </div>
     </div>
-
-    <!-- REGRAS FIRESTORE -->
     <div class="config-rules">
       <h3>🔒 Regras Firestore recomendadas</h3>
       <div class="code-block">rules_version = '2';
 service cloud.firestore {
   match /databases/{database}/documents {
-    match /instrucoes/{doc} {
-      allow read, write: if request.auth != null;
+    match /{document=**} {
+      allow read, write: if true;
     }
   }
 }</div>
     </div>
-
-  </div><!-- /page-config -->
+  </div>
 </main>
 
-<!-- MODAL FORM -->
-<div class="modal-overlay" id="modal-form">
+<!-- MODAL: INSTRUÇÃO -->
+<div class="modal-overlay" id="modal-instrucao">
   <div class="modal">
     <div class="modal-header">
-      <div><h2 id="modal-title">Nova Instrução</h2><p id="modal-subtitle">Preencha os campos abaixo</p></div>
-      <button class="btn-close" onclick="closeModal('modal-form')">×</button>
+      <div><h2 id="modal-instr-title">Nova Instrução</h2><p id="modal-instr-subtitle">Preencha os campos abaixo</p></div>
+      <button class="btn-close" onclick="closeModal('modal-instrucao')">×</button>
     </div>
     <div class="modal-body">
       <input type="hidden" id="form-id">
@@ -387,18 +365,9 @@ service cloud.firestore {
         <div class="form-group">
           <div class="field-label">Tipo de Processo</div>
           <select class="field-input" id="form-tipo">
-            <option value="">Selecione...</option>
-            <option value="TRABALHISTA">Trabalhista</option>
-            <option value="PREVIDENCIARIO">Previdenciário</option>
-            <option value="CIVIL">Civil</option>
-            <option value="CRIMINAL">Criminal</option>
-            <option value="TRIBUTARIO">Tributário</option>
-            <option value="ADMINISTRATIVO">Administrativo</option>
-            <option value="CONSUMIDOR">Consumidor</option>
-            <option value="FAMILIA">Família</option>
-            <option value="IMOBILIARIO">Imobiliário</option>
-            <option value="EMPRESARIAL">Empresarial</option>
+            <option value="">Carregando tipos...</option>
           </select>
+          <div class="field-error" id="error-tipo">Já existe uma instrução para este tipo de processo.</div>
         </div>
         <div class="form-group">
           <div class="field-label">Status</div>
@@ -418,15 +387,15 @@ service cloud.firestore {
         <div class="file-upload-area" onclick="document.getElementById('file-input').click()">
           <svg width="28" height="28" fill="none" viewBox="0 0 24 24" stroke="#4A7FA7" style="margin:0 auto 8px;display:block"><path stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
           <p>Clique para selecionar arquivos</p>
-          <small id="storage-hint">Firebase Storage ou Cloudflare R2 — salvo automaticamente</small>
+          <small id="storage-hint">Firebase Storage ou Cloudflare R2</small>
         </div>
         <input type="file" id="file-input" multiple style="display:none" accept=".pdf,.docx,.txt,.doc" onchange="handleFiles(this)">
         <div class="file-list" id="file-list"></div>
       </div>
     </div>
     <div class="modal-footer">
-      <button class="btn-cancel" onclick="closeModal('modal-form')">Cancelar</button>
-      <button class="btn-save" id="btn-save-form" onclick="saveInstrucao()">
+      <button class="btn-cancel" onclick="closeModal('modal-instrucao')">Cancelar</button>
+      <button class="btn-save" id="btn-save-instr" onclick="saveInstrucao()">
         <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
         Salvar Instrução
       </button>
@@ -434,7 +403,33 @@ service cloud.firestore {
   </div>
 </div>
 
-<!-- MODAL VIEW -->
+<!-- MODAL: TIPO -->
+<div class="modal-overlay" id="modal-tipo">
+  <div class="modal" style="width:460px">
+    <div class="modal-header">
+      <div><h2 id="modal-tipo-title">Novo Tipo de Processo</h2><p id="modal-tipo-subtitle">O nome será salvo em Title Case</p></div>
+      <button class="btn-close" onclick="closeModal('modal-tipo')">×</button>
+    </div>
+    <div class="modal-body">
+      <input type="hidden" id="tipo-id">
+      <div class="form-group">
+        <div class="field-label">Nome do Tipo</div>
+        <input class="field-input" type="text" id="tipo-nome" autocomplete="off" placeholder="Ex: trabalhista, direito do consumidor..." oninput="onTipoNomeInput(this.value)">
+        <div class="field-error" id="error-tipo-nome">Já existe um tipo com este nome.</div>
+        <div class="field-preview" id="tipo-nome-preview"></div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-cancel" onclick="closeModal('modal-tipo')">Cancelar</button>
+      <button class="btn-save" id="btn-save-tipo" onclick="saveTipo()">
+        <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2.5" d="M5 13l4 4L19 7"/></svg>
+        Salvar Tipo
+      </button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: VIEW INSTRUÇÃO -->
 <div class="modal-overlay" id="modal-view">
   <div class="modal" style="width:600px">
     <div class="modal-header">
@@ -452,15 +447,15 @@ service cloud.firestore {
   </div>
 </div>
 
-<!-- MODAL DELETE -->
+<!-- MODAL: DELETE -->
 <div class="modal-overlay" id="modal-delete">
   <div class="modal" style="width:420px">
     <div class="modal-body" style="padding:32px 28px 20px;text-align:center">
       <div style="width:56px;height:56px;background:rgba(231,76,60,0.1);border-radius:50%;display:flex;align-items:center;justify-content:center;margin:0 auto 16px">
         <svg width="24" height="24" fill="none" viewBox="0 0 24 24" stroke="#e74c3c"><path stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
       </div>
-      <h3 style="font-size:16px;font-weight:700;color:var(--navy);margin-bottom:8px">Excluir Instrução</h3>
-      <p style="font-size:13px;color:#6b7280">Esta ação remove o registro e todos os arquivos vinculados. Não pode ser desfeita.</p>
+      <h3 style="font-size:16px;font-weight:700;color:var(--navy);margin-bottom:8px" id="delete-title">Excluir</h3>
+      <p style="font-size:13px;color:#6b7280" id="delete-desc">Esta ação não pode ser desfeita.</p>
     </div>
     <div class="modal-footer">
       <button class="btn-cancel" onclick="closeModal('modal-delete')">Cancelar</button>
@@ -476,34 +471,62 @@ service cloud.firestore {
 // STATE
 // ================================================================
 let db = null, fbStorage = null;
-let instrucoes = [], filteredData = [];
+let instrucoes = [], tipos = [], filteredData = [], filteredTipos = [];
 let currentFilter = 'todos', currentPage = 1;
 const PER_PAGE = 8;
-let deleteId = null, viewingId = null;
-let pendingFiles = [];
-let existingFiles = [];
+let deleteId = null, deleteType = null, viewingId = null;
+let pendingFiles = [], existingFiles = [];
+let currentPage_ = 'instrucoes'; // track active page
 
 // ================================================================
-// LOCAL STORAGE HELPERS
+// NORMALIZAÇÃO
 // ================================================================
-const LS = {
-  get: k => localStorage.getItem(k) || '',
-  set: (k, v) => localStorage.setItem(k, v),
-  del: k => localStorage.removeItem(k)
-};
+function normalizar(str) {
+  // Remove espaços e coloca tudo em maiúsculo para comparação
+  return str.trim().toUpperCase().replace(/\s+/g, '');
+}
+
+function toTitleCase(str) {
+  return str.trim().toLowerCase().replace(/(?:^|\s|-)\S/g, c => c.toUpperCase());
+}
+
+function onTipoNomeInput(val) {
+  const preview = document.getElementById('tipo-nome-preview');
+  const errEl = document.getElementById('error-tipo-nome');
+  const input = document.getElementById('tipo-nome');
+  if (!val.trim()) { preview.textContent = ''; errEl.classList.remove('show'); input.classList.remove('error'); return; }
+  const tc = toTitleCase(val);
+  preview.textContent = `Será salvo como: "${tc}"`;
+  // Verifica duplicata (excluindo o próprio ao editar)
+  const editId = document.getElementById('tipo-id').value;
+  const norm = normalizar(val);
+  const duplicata = tipos.find(t => normalizar(t.nome) === norm && t.id !== editId);
+  if (duplicata) { errEl.classList.add('show'); input.classList.add('error'); }
+  else { errEl.classList.remove('show'); input.classList.remove('error'); }
+}
+
+// Ao selecionar tipo no modal de instrução, verifica unicidade
+function onTipoSelectChange() {
+  const sel = document.getElementById('form-tipo');
+  const editId = document.getElementById('form-id').value;
+  const errEl = document.getElementById('error-tipo');
+  if (!sel.value) { errEl.classList.remove('show'); sel.classList.remove('error'); return; }
+  const norm = normalizar(sel.value);
+  const duplicata = instrucoes.find(i => normalizar(i.tipoProcesso) === norm && i.id !== editId);
+  if (duplicata) { errEl.classList.add('show'); sel.classList.add('error'); }
+  else { errEl.classList.remove('show'); sel.classList.remove('error'); }
+}
 
 // ================================================================
-// FIREBASE CONFIG
+// LOCAL STORAGE
 // ================================================================
+const LS = { get: k => localStorage.getItem(k)||'', set: (k,v) => localStorage.setItem(k,v), del: k => localStorage.removeItem(k) };
+
 function getFbConfig() {
-  return {
-    apiKey: LS.get('fb_apiKey'),
-    authDomain: LS.get('fb_authDomain'),
-    projectId: LS.get('fb_projectId'),
-    storageBucket: LS.get('fb_storageBucket'),
-    messagingSenderId: LS.get('fb_messagingSenderId'),
-    appId: LS.get('fb_appId')
-  };
+  return { apiKey: LS.get('fb_apiKey'), authDomain: LS.get('fb_authDomain'), projectId: LS.get('fb_projectId'), storageBucket: LS.get('fb_storageBucket'), messagingSenderId: LS.get('fb_messagingSenderId'), appId: LS.get('fb_appId') };
+}
+function getR2Config() {
+  return { accountId: LS.get('r2_accountId'), accessKeyId: LS.get('r2_accessKeyId'), secretAccessKey: LS.get('r2_secretAccessKey'), bucketName: LS.get('r2_bucketName'), publicUrl: LS.get('r2_publicUrl') };
 }
 
 function loadFbInputs() {
@@ -515,45 +538,6 @@ function loadFbInputs() {
   document.getElementById('fb-messagingSenderId').value = c.messagingSenderId;
   document.getElementById('fb-appId').value = c.appId;
 }
-
-function saveFirebase() {
-  const vals = {
-    fb_apiKey: document.getElementById('fb-apiKey').value.trim(),
-    fb_authDomain: document.getElementById('fb-authDomain').value.trim(),
-    fb_projectId: document.getElementById('fb-projectId').value.trim(),
-    fb_storageBucket: document.getElementById('fb-storageBucket').value.trim(),
-    fb_messagingSenderId: document.getElementById('fb-messagingSenderId').value.trim(),
-    fb_appId: document.getElementById('fb-appId').value.trim()
-  };
-  if (!vals.fb_apiKey || !vals.fb_projectId) { showToast('API Key e Project ID são obrigatórios', 'error'); return; }
-  Object.entries(vals).forEach(([k, v]) => LS.set(k, v));
-  showToast('Firebase salvo! Conectando...', 'info');
-  db = null; fbStorage = null;
-  const del = window.firebase && firebase.apps.length ? firebase.app().delete() : Promise.resolve();
-  del.then(initFirebase).catch(initFirebase);
-}
-
-function clearFirebase() {
-  ['fb_apiKey','fb_authDomain','fb_projectId','fb_storageBucket','fb_messagingSenderId','fb_appId']
-    .forEach(k => LS.del(k));
-  loadFbInputs();
-  setBadge('firebase', false, 'Desconectado');
-  showToast('Configuração Firebase removida', 'info');
-}
-
-// ================================================================
-// R2 CONFIG
-// ================================================================
-function getR2Config() {
-  return {
-    accountId: LS.get('r2_accountId'),
-    accessKeyId: LS.get('r2_accessKeyId'),
-    secretAccessKey: LS.get('r2_secretAccessKey'),
-    bucketName: LS.get('r2_bucketName'),
-    publicUrl: LS.get('r2_publicUrl')
-  };
-}
-
 function loadR2Inputs() {
   const c = getR2Config();
   document.getElementById('r2-accountId').value = c.accountId;
@@ -563,51 +547,40 @@ function loadR2Inputs() {
   document.getElementById('r2-publicUrl').value = c.publicUrl;
 }
 
+function saveFirebase() {
+  const v = { fb_apiKey: document.getElementById('fb-apiKey').value.trim(), fb_authDomain: document.getElementById('fb-authDomain').value.trim(), fb_projectId: document.getElementById('fb-projectId').value.trim(), fb_storageBucket: document.getElementById('fb-storageBucket').value.trim(), fb_messagingSenderId: document.getElementById('fb-messagingSenderId').value.trim(), fb_appId: document.getElementById('fb-appId').value.trim() };
+  if (!v.fb_apiKey || !v.fb_projectId) { showToast('API Key e Project ID são obrigatórios', 'error'); return; }
+  Object.entries(v).forEach(([k, val]) => LS.set(k, val));
+  showToast('Firebase salvo! Conectando...', 'info');
+  db = null; fbStorage = null;
+  const del = window.firebase && firebase.apps.length ? firebase.app().delete() : Promise.resolve();
+  del.then(initFirebase).catch(initFirebase);
+}
+function clearFirebase() {
+  ['fb_apiKey','fb_authDomain','fb_projectId','fb_storageBucket','fb_messagingSenderId','fb_appId'].forEach(k => LS.del(k));
+  loadFbInputs(); setBadge('firebase', false, 'Desconectado'); showToast('Configuração Firebase removida', 'info');
+}
 function saveR2() {
-  const vals = {
-    r2_accountId: document.getElementById('r2-accountId').value.trim(),
-    r2_accessKeyId: document.getElementById('r2-accessKeyId').value.trim(),
-    r2_secretAccessKey: document.getElementById('r2-secretAccessKey').value.trim(),
-    r2_bucketName: document.getElementById('r2-bucketName').value.trim(),
-    r2_publicUrl: document.getElementById('r2-publicUrl').value.trim()
-  };
-  Object.entries(vals).forEach(([k, v]) => LS.set(k, v));
-  const configured = vals.r2_accessKeyId && vals.r2_bucketName;
-  setBadge('r2', configured, configured ? 'Configurado' : 'Opcional', configured ? 'ok' : 'warn');
-  showToast('Configuração R2 salva!', 'success');
-  updateStorageHint();
+  const v = { r2_accountId: document.getElementById('r2-accountId').value.trim(), r2_accessKeyId: document.getElementById('r2-accessKeyId').value.trim(), r2_secretAccessKey: document.getElementById('r2-secretAccessKey').value.trim(), r2_bucketName: document.getElementById('r2-bucketName').value.trim(), r2_publicUrl: document.getElementById('r2-publicUrl').value.trim() };
+  Object.entries(v).forEach(([k, val]) => LS.set(k, val));
+  const ok = v.r2_accessKeyId && v.r2_bucketName;
+  setBadge('r2', ok, ok ? 'Configurado' : 'Opcional', ok ? 'ok' : 'warn');
+  showToast('Configuração R2 salva!', 'success'); updateStorageHint();
 }
-
 function clearR2() {
-  ['r2_accountId','r2_accessKeyId','r2_secretAccessKey','r2_bucketName','r2_publicUrl']
-    .forEach(k => LS.del(k));
-  loadR2Inputs();
-  setBadge('r2', false, 'Opcional', 'warn');
-  showToast('Configuração R2 removida', 'info');
-  updateStorageHint();
+  ['r2_accountId','r2_accessKeyId','r2_secretAccessKey','r2_bucketName','r2_publicUrl'].forEach(k => LS.del(k));
+  loadR2Inputs(); setBadge('r2', false, 'Opcional', 'warn'); showToast('Configuração R2 removida', 'info'); updateStorageHint();
 }
-
+function setBadge(id, ok, text, forceClass) {
+  const b = document.getElementById('badge-'+id), t = document.getElementById('badge-'+id+'-text');
+  if (!b) return;
+  b.className = 'config-badge ' + (forceClass || (ok ? 'ok' : 'nok'));
+  if (t) t.textContent = text;
+}
 function updateStorageHint() {
   const r2 = getR2Config();
-  const hint = document.getElementById('storage-hint');
-  if (!hint) return;
-  if (r2.accessKeyId && r2.bucketName) {
-    hint.textContent = 'Cloudflare R2 ativo — arquivos enviados ao seu bucket';
-  } else {
-    hint.textContent = 'Firebase Storage — arquivos salvos automaticamente';
-  }
-}
-
-// ================================================================
-// BADGE HELPER
-// ================================================================
-function setBadge(id, ok, text, forceClass) {
-  const badge = document.getElementById('badge-' + id);
-  const txtEl = document.getElementById('badge-' + id + '-text');
-  if (!badge) return;
-  const cls = forceClass || (ok ? 'ok' : 'nok');
-  badge.className = 'config-badge ' + cls;
-  if (txtEl) txtEl.textContent = text;
+  const h = document.getElementById('storage-hint');
+  if (h) h.textContent = r2.accessKeyId && r2.bucketName ? 'Cloudflare R2 ativo — arquivos enviados ao seu bucket' : 'Firebase Storage — arquivos salvos automaticamente';
 }
 
 // ================================================================
@@ -619,21 +592,16 @@ function loadSDK() {
     const s = (src, cb) => { const el = document.createElement('script'); el.src = src; el.onload = cb; document.head.appendChild(el); };
     s('https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js', () =>
       s('https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js', () =>
-        s('https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js', resolve)
-      )
-    );
+        s('https://www.gstatic.com/firebasejs/9.22.0/firebase-storage-compat.js', resolve)));
   });
 }
 
 async function initFirebase() {
   const c = getFbConfig();
   if (!c.apiKey || !c.projectId) {
-    document.getElementById('table-body').innerHTML = `<div class="empty-state">
-      <svg fill="none" viewBox="0 0 24 24" stroke="currentColor" style="width:48px;height:48px;color:var(--blue-light);margin-bottom:16px"><path stroke-width="1.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
-      <h3>Firebase não configurado</h3><p>Acesse Configurações e insira suas credenciais Firebase.</p></div>`;
+    document.getElementById('table-body').innerHTML = `<div class="empty-state"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" style="width:48px;height:48px;color:var(--blue-light);margin-bottom:16px"><path stroke-width="1.5" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg><h3>Firebase não configurado</h3><p>Acesse Configurações e insira suas credenciais Firebase.</p></div>`;
     document.getElementById('page-subtitle').textContent = 'Configure o Firebase para começar';
-    setBadge('firebase', false, 'Desconectado');
-    return;
+    setBadge('firebase', false, 'Desconectado'); return;
   }
   document.getElementById('table-body').innerHTML = '<div class="loading"><div class="spinner"></div> Conectando ao Firebase...</div>';
   await loadSDK();
@@ -641,135 +609,162 @@ async function initFirebase() {
     if (!firebase.apps.length) firebase.initializeApp(c);
     db = firebase.firestore();
     if (c.storageBucket) fbStorage = firebase.storage();
+
+    // Escuta instrucoes
     db.collection('instrucoes').orderBy('criadoEm', 'desc').onSnapshot(snap => {
       instrucoes = snap.docs.map(d => ({ id: d.id, ...d.data() }));
       applyFilter(); updateDashboard();
       document.getElementById('page-subtitle').textContent = instrucoes.length + ' registros encontrados';
     }, err => { showToast('Firestore: ' + err.message, 'error'); setBadge('firebase', false, 'Erro'); });
+
+    // Escuta tipos
+    db.collection('tipos').orderBy('nome').onSnapshot(snap => {
+      tipos = snap.docs.map(d => ({ id: d.id, ...d.data() }));
+      filteredTipos = [...tipos];
+      renderTipos(); renderTipoSelect(); updateDashboard();
+    }, err => showToast('Tipos: ' + err.message, 'error'));
+
     setBadge('firebase', true, 'Conectado');
-  } catch (e) {
-    showToast('Erro Firebase: ' + e.message, 'error');
-    setBadge('firebase', false, 'Erro de conexão');
+  } catch (e) { showToast('Erro Firebase: ' + e.message, 'error'); setBadge('firebase', false, 'Erro de conexão'); }
+}
+
+// ================================================================
+// TIPOS — CRUD
+// ================================================================
+function renderTipos() {
+  const grid = document.getElementById('tipos-grid');
+  const data = filteredTipos;
+
+  // Estatísticas
+  const tiposComInstrucao = tipos.filter(t => instrucoes.some(i => normalizar(i.tipoProcesso) === normalizar(t.nome)));
+  document.getElementById('tipos-count').textContent = tipos.length;
+  document.getElementById('tipos-com-instrucao').textContent = tiposComInstrucao.length;
+  document.getElementById('tipos-sem-instrucao').textContent = tipos.length - tiposComInstrucao.length;
+
+  if (!data.length) {
+    grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" style="width:48px;height:48px;color:var(--blue-light);margin-bottom:16px"><path stroke-width="1.5" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A2 2 0 013 12V7a4 4 0 014-4z"/></svg><h3>Nenhum tipo cadastrado</h3><p>Crie um tipo de processo para começar.</p></div>`;
+    return;
   }
+
+  grid.innerHTML = data.map(t => {
+    const temInstrucao = instrucoes.some(i => normalizar(i.tipoProcesso) === normalizar(t.nome));
+    return `<div class="tipo-card ${temInstrucao ? 'tem-instrucao' : 'sem-instrucao'}">
+      <span class="tipo-card-name">${t.nome}</span>
+      <span class="tipo-card-badge" title="${temInstrucao ? 'Tem instrução cadastrada' : 'Sem instrução'}">${temInstrucao ? '✓ Com instrução' : 'Sem instrução'}</span>
+      <span class="tipo-card-actions">
+        <button class="btn-icon btn-edit" title="Editar" onclick="openModalTipo('edit','${t.id}')">
+          <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
+        </button>
+        <button class="btn-icon btn-del" title="Excluir" onclick="askDelete('${t.id}','tipo','${t.nome.replace(/'/g,"\\'")}')">
+          <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
+        </button>
+      </span>
+    </div>`;
+  }).join('');
 }
 
-// ================================================================
-// R2 UPLOAD (AWS S3 compatible via fetch + SigV4 — browser-side)
-// ================================================================
-// NOTE: R2 suporta chamadas diretas via S3 API com CORS configurado no bucket.
-// Para habilitar: no dashboard R2 → Settings → CORS → adicione sua origem (ou *)
-async function uploadToR2(file, docId) {
-  const r2 = getR2Config();
-  if (!r2.accessKeyId || !r2.secretAccessKey || !r2.bucketName || !r2.accountId) return null;
-
-  const key = `instrucoes/${docId}/${Date.now()}_${file.name}`;
-  const endpoint = `https://${r2.accountId}.r2.cloudflarestorage.com`;
-
-  // Usa XMLHttpRequest direto com headers de autorização básica
-  // Para assinatura SigV4 completa no browser, carregamos a lib aws-sdk
-  try {
-    if (!window.AWS) {
-      await new Promise((res, rej) => {
-        const sc = document.createElement('script');
-        sc.src = 'https://cdnjs.cloudflare.com/ajax/libs/aws-sdk/2.1450.0/aws-sdk.min.js';
-        sc.onload = res; sc.onerror = rej;
-        document.head.appendChild(sc);
-      });
-    }
-    AWS.config.update({
-      accessKeyId: r2.accessKeyId,
-      secretAccessKey: r2.secretAccessKey,
-      region: 'auto',
-      signatureVersion: 'v4'
-    });
-    const s3 = new AWS.S3({ endpoint: new AWS.Endpoint(endpoint) });
-    await new Promise((res, rej) => {
-      s3.putObject({ Bucket: r2.bucketName, Key: key, Body: file, ContentType: file.type || 'application/octet-stream' }, err => err ? rej(err) : res());
-    });
-    const publicUrl = r2.publicUrl ? r2.publicUrl.replace(/\/$/, '') + '/' + key : null;
-    return { url: publicUrl, storagePath: key, storage: 'r2' };
-  } catch (e) {
-    showToast('R2 erro: ' + e.message + '. Verifique CORS no bucket.', 'error');
-    return null;
-  }
+function searchTipos(q) {
+  const lq = q.toLowerCase();
+  filteredTipos = tipos.filter(t => t.nome.toLowerCase().includes(lq));
+  renderTipos();
 }
 
-// ================================================================
-// FIREBASE STORAGE UPLOAD
-// ================================================================
-async function uploadToFirebase(file, docId) {
-  if (!fbStorage) return null;
-  const path = `instrucoes/${docId}/${Date.now()}_${file.name}`;
-  const ref = fbStorage.ref(path);
-  await ref.put(file);
-  const url = await ref.getDownloadURL();
-  return { url, storagePath: path, storage: 'firebase' };
-}
-
-// ================================================================
-// UPLOAD DISPATCHER
-// ================================================================
-async function uploadFile(file, docId) {
-  const r2 = getR2Config();
-  if (r2.accessKeyId && r2.bucketName) {
-    return await uploadToR2(file, docId);
-  }
-  return await uploadToFirebase(file, docId);
-}
-
-async function uploadPendingFiles(docId) {
-  for (const f of pendingFiles) {
-    if (f.status !== 'pending') continue;
-    renderFileItem(f.name, 'uploading');
-    try {
-      const result = await uploadFile(f.file, docId);
-      if (result) {
-        f.url = result.url; f.storagePath = result.storagePath;
-        f.storageType = result.storage; f.status = 'uploaded';
-        renderFileItem(f.name, 'saved');
-      }
-    } catch (e) { showToast('Erro upload ' + f.name + ': ' + e.message, 'error'); }
-  }
-}
-
-// ================================================================
-// FILE UI
-// ================================================================
-function handleFiles(input) {
-  Array.from(input.files).forEach(file => {
-    if (pendingFiles.find(f => f.name === file.name)) return;
-    pendingFiles.push({ file, name: file.name, status: 'pending', url: null, storagePath: null });
-    renderFileItem(file.name, 'pending');
+function renderTipoSelect() {
+  const sel = document.getElementById('form-tipo');
+  const val = sel.value;
+  sel.innerHTML = '<option value="">Selecione o tipo...</option>';
+  tipos.forEach(t => {
+    const opt = document.createElement('option');
+    opt.value = t.nome;
+    opt.textContent = t.nome;
+    sel.appendChild(opt);
   });
-  input.value = '';
+  if (val) sel.value = val;
+  sel.onchange = onTipoSelectChange;
 }
 
-function renderFileItem(name, status) {
-  document.querySelector(`#file-list [data-fname="${CSS.escape(name)}"]`)?.remove();
-  const list = document.getElementById('file-list');
-  const div = document.createElement('div');
-  div.className = 'file-item'; div.dataset.fname = name;
-  const badge = status === 'saved' ? `<span class="file-saved">✓ Salvo</span>` :
-                status === 'uploading' ? `<span class="file-sending">⏳ Enviando...</span>` : '';
-  div.innerHTML = `
-    <span class="file-item-name">
-      <svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/></svg>
-      <span>${name}</span>
-    </span>
-    ${badge}
-    <button class="file-item-remove" onclick="removeFile('${name.replace(/'/g,"\\'")}')">×</button>`;
-  list.appendChild(div);
+function openModalTipo(mode, id) {
+  document.getElementById('tipo-id').value = '';
+  document.getElementById('tipo-nome').value = '';
+  document.getElementById('tipo-nome-preview').textContent = '';
+  document.getElementById('error-tipo-nome').classList.remove('show');
+  document.getElementById('tipo-nome').classList.remove('error');
+
+  if (mode === 'edit') {
+    const t = tipos.find(x => x.id === id); if (!t) return;
+    document.getElementById('modal-tipo-title').textContent = 'Editar Tipo';
+    document.getElementById('modal-tipo-subtitle').textContent = `Editando: ${t.nome}`;
+    document.getElementById('tipo-id').value = t.id;
+    document.getElementById('tipo-nome').value = t.nome;
+    document.getElementById('tipo-nome-preview').textContent = `Será salvo como: "${toTitleCase(t.nome)}"`;
+  } else {
+    document.getElementById('modal-tipo-title').textContent = 'Novo Tipo de Processo';
+    document.getElementById('modal-tipo-subtitle').textContent = 'O nome será salvo em Title Case';
+  }
+  document.getElementById('modal-tipo').classList.add('open');
 }
 
-function removeFile(name) {
-  pendingFiles = pendingFiles.filter(f => f.name !== name);
-  existingFiles = existingFiles.filter(f => f.name !== name);
-  document.querySelector(`#file-list [data-fname="${CSS.escape(name)}"]`)?.remove();
+async function saveTipo() {
+  if (!db) { showToast('Firebase não configurado', 'error'); return; }
+  const nome = document.getElementById('tipo-nome').value.trim();
+  const id = document.getElementById('tipo-id').value;
+  if (!nome) { showToast('Digite o nome do tipo', 'error'); return; }
+
+  const norm = normalizar(nome);
+  const duplicata = tipos.find(t => normalizar(t.nome) === norm && t.id !== id);
+  if (duplicata) { showToast('Já existe um tipo com este nome', 'error'); return; }
+
+  const nomeFormatado = toTitleCase(nome);
+  const btn = document.getElementById('btn-save-tipo');
+  btn.disabled = true;
+
+  try {
+    if (id) {
+      await db.collection('tipos').doc(id).update({ nome: nomeFormatado });
+      showToast('Tipo atualizado!', 'success');
+    } else {
+      await db.collection('tipos').add({ nome: nomeFormatado, criadoEm: firebase.firestore.FieldValue.serverTimestamp() });
+      showToast('Tipo criado!', 'success');
+    }
+    closeModal('modal-tipo');
+  } catch (e) { showToast('Erro: ' + e.message, 'error'); }
+  finally { btn.disabled = false; }
 }
 
 // ================================================================
-// SAVE INSTRUCAO
+// INSTRUÇÃO — MODAL
 // ================================================================
+function openModal(mode, id) {
+  pendingFiles = []; existingFiles = [];
+  document.getElementById('file-list').innerHTML = '';
+  document.getElementById('error-tipo').classList.remove('show');
+  document.getElementById('form-tipo').classList.remove('error');
+  updateStorageHint(); renderTipoSelect();
+
+  if (mode === 'create') {
+    document.getElementById('modal-instr-title').textContent = 'Nova Instrução';
+    document.getElementById('modal-instr-subtitle').textContent = 'Preencha os campos abaixo';
+    document.getElementById('form-id').value = '';
+    document.getElementById('form-tipo').value = '';
+    document.getElementById('form-status').value = 'ativo';
+    document.getElementById('form-instrucao').value = '';
+  } else {
+    const item = instrucoes.find(i => i.id === id); if (!item) return;
+    document.getElementById('modal-instr-title').textContent = 'Editar Instrução';
+    document.getElementById('modal-instr-subtitle').textContent = 'Editando: ' + item.tipoProcesso;
+    document.getElementById('form-id').value = item.id;
+    document.getElementById('form-tipo').value = item.tipoProcesso || '';
+    document.getElementById('form-status').value = item.status || 'rascunho';
+    document.getElementById('form-instrucao').value = item.instrucao || '';
+    (item.arquivos || []).forEach(a => {
+      const name = typeof a === 'string' ? a : a.name;
+      existingFiles.push(typeof a === 'string' ? { name, url: null, storagePath: null, storage: 'firebase' } : a);
+      renderFileItem(name, 'saved');
+    });
+  }
+  document.getElementById('modal-instrucao').classList.add('open');
+}
+
 async function saveInstrucao() {
   if (!db) { showToast('Firebase não configurado', 'error'); return; }
   const tipo = document.getElementById('form-tipo').value;
@@ -779,157 +774,88 @@ async function saveInstrucao() {
   if (!tipo) { showToast('Selecione o tipo de processo', 'error'); return; }
   if (!instrucao) { showToast('A instrução não pode estar vazia', 'error'); return; }
 
-  const btn = document.getElementById('btn-save-form');
+  // Validação de unicidade — só bloqueia na criação ou se mudou o tipo
+  const norm = normalizar(tipo);
+  const duplicata = instrucoes.find(i => normalizar(i.tipoProcesso) === norm && i.id !== id);
+  if (duplicata) {
+    document.getElementById('error-tipo').classList.add('show');
+    document.getElementById('form-tipo').classList.add('error');
+    showToast('Já existe uma instrução para este tipo', 'error');
+    return;
+  }
+
+  const btn = document.getElementById('btn-save-instr');
   btn.disabled = true;
   btn.innerHTML = '<div class="spinner" style="width:14px;height:14px;border-width:2px"></div> Salvando...';
 
   try {
     let docId = id;
     if (!id) {
-      const ref = await db.collection('instrucoes').add({
-        tipoProcesso: tipo, instrucao, status, arquivos: [],
-        criadoEm: firebase.firestore.FieldValue.serverTimestamp()
-      });
+      const ref = await db.collection('instrucoes').add({ tipoProcesso: tipo, instrucao, status, arquivos: [], criadoEm: firebase.firestore.FieldValue.serverTimestamp() });
       docId = ref.id;
     }
-
-    if (pendingFiles.some(f => f.status === 'pending')) {
-      showToast('Enviando arquivos...', 'info');
-      await uploadPendingFiles(docId);
-    }
-
-    const novos = pendingFiles.filter(f => f.status === 'uploaded')
-      .map(f => ({ name: f.name, url: f.url, storagePath: f.storagePath, storage: f.storageType || 'firebase' }));
+    if (pendingFiles.some(f => f.status === 'pending')) { showToast('Enviando arquivos...', 'info'); await uploadPendingFiles(docId); }
+    const novos = pendingFiles.filter(f => f.status === 'uploaded').map(f => ({ name: f.name, url: f.url, storagePath: f.storagePath, storage: f.storageType || 'firebase' }));
     const allArquivos = [...existingFiles, ...novos];
-
-    if (id) {
-      await db.collection('instrucoes').doc(id).update({ tipoProcesso: tipo, instrucao, status, arquivos: allArquivos });
-      showToast('Instrução atualizada!', 'success');
-    } else {
-      await db.collection('instrucoes').doc(docId).update({ arquivos: allArquivos });
-      showToast('Instrução criada!', 'success');
-    }
-    closeModal('modal-form');
+    if (id) { await db.collection('instrucoes').doc(id).update({ tipoProcesso: tipo, instrucao, status, arquivos: allArquivos }); showToast('Instrução atualizada!', 'success'); }
+    else { await db.collection('instrucoes').doc(docId).update({ arquivos: allArquivos }); showToast('Instrução criada!', 'success'); }
+    closeModal('modal-instrucao');
   } catch (e) { showToast('Erro: ' + e.message, 'error'); }
-  finally {
-    btn.disabled = false;
-    btn.innerHTML = '<svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> Salvar Instrução';
-  }
+  finally { btn.disabled = false; btn.innerHTML = '<svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> Salvar Instrução'; }
 }
-
-// ================================================================
-// MODAL
-// ================================================================
-function openModal(mode, id) {
-  pendingFiles = []; existingFiles = [];
-  document.getElementById('file-list').innerHTML = '';
-  updateStorageHint();
-  if (mode === 'create') {
-    document.getElementById('modal-title').textContent = 'Nova Instrução';
-    document.getElementById('modal-subtitle').textContent = 'Preencha os campos abaixo';
-    document.getElementById('form-id').value = '';
-    document.getElementById('form-tipo').value = '';
-    document.getElementById('form-status').value = 'ativo';
-    document.getElementById('form-instrucao').value = '';
-  } else {
-    const item = instrucoes.find(i => i.id === id); if (!item) return;
-    document.getElementById('modal-title').textContent = 'Editar Instrução';
-    document.getElementById('modal-subtitle').textContent = 'Editando: ' + ftipo(item.tipoProcesso);
-    document.getElementById('form-id').value = item.id;
-    document.getElementById('form-tipo').value = item.tipoProcesso || '';
-    document.getElementById('form-status').value = item.status || 'rascunho';
-    document.getElementById('form-instrucao').value = item.instrucao || '';
-    (item.arquivos || []).forEach(a => {
-      const name = typeof a === 'string' ? a : a.name;
-      const url = typeof a === 'object' ? a.url : null;
-      const sp = typeof a === 'object' ? a.storagePath : null;
-      const st = typeof a === 'object' ? a.storage : 'firebase';
-      existingFiles.push({ name, url, storagePath: sp, storage: st });
-      renderFileItem(name, 'saved');
-    });
-  }
-  document.getElementById('modal-form').classList.add('open');
-}
-
-function closeModal(id) { document.getElementById(id).classList.remove('open'); }
-
-// ================================================================
-// VIEW
-// ================================================================
-const statusMap = { ativo: 'Ativo', rascunho: 'Rascunho', inativo: 'Inativo' };
-
-function viewInstrucao(id) {
-  const item = instrucoes.find(i => i.id === id); if (!item) return;
-  viewingId = id;
-  const st = item.status || 'rascunho';
-  document.getElementById('view-tipo').textContent = ftipo(item.tipoProcesso);
-  document.getElementById('view-badge').innerHTML = `<span class="status-badge ${st}"><span class="status-dot"></span>${statusMap[st] || st}</span>`;
-  const arqHtml = item.arquivos?.length
-    ? item.arquivos.map(a => {
-        const n = typeof a === 'string' ? a : a.name;
-        const u = typeof a === 'object' ? (a.url || '#') : '#';
-        const badge = typeof a === 'object' && a.storage === 'r2' ? ' <small style="color:#F6821F;font-size:10px">R2</small>' : '';
-        return `<a href="${u}" target="_blank" class="file-link">📎 ${n}${badge}</a>`;
-      }).join('')
-    : '<span style="color:#9ca3af;font-size:12px">Nenhum arquivo vinculado</span>';
-  const date = item.criadoEm?.toDate ? item.criadoEm.toDate().toLocaleDateString('pt-BR') : '—';
-  document.getElementById('view-body').innerHTML = `
-    <div class="detail-row"><span class="detail-label">Tipo</span><span class="detail-value">${ftipo(item.tipoProcesso)}</span></div>
-    <div class="detail-row"><span class="detail-label">Instrução</span><div class="detail-instrucao">${item.instrucao || '—'}</div></div>
-    <div class="detail-row"><span class="detail-label">Arquivos</span><div class="detail-value">${arqHtml}</div></div>
-    <div class="detail-row"><span class="detail-label">Criado em</span><span class="detail-value">${date}</span></div>`;
-  document.getElementById('modal-view').classList.add('open');
-}
-
-function editFromView() { closeModal('modal-view'); openModal('edit', viewingId); }
 
 // ================================================================
 // DELETE
 // ================================================================
-function askDelete(id) { deleteId = id; document.getElementById('modal-delete').classList.add('open'); }
+function askDelete(id, type, nome) {
+  deleteId = id; deleteType = type;
+  const titleMap = { instrucao: 'Excluir Instrução', tipo: 'Excluir Tipo de Processo' };
+  const descMap = {
+    instrucao: 'Esta ação remove o registro e todos os arquivos vinculados. Não pode ser desfeita.',
+    tipo: `Excluir o tipo "<strong>${nome}</strong>"? Se houver uma instrução vinculada a este tipo, ela não será excluída automaticamente.`
+  };
+  document.getElementById('delete-title').textContent = titleMap[type];
+  document.getElementById('delete-desc').innerHTML = descMap[type];
+  document.getElementById('modal-delete').classList.add('open');
+}
 
 async function confirmDelete() {
   if (!deleteId || !db) return;
   try {
-    const item = instrucoes.find(i => i.id === deleteId);
-    if (item?.arquivos?.length) {
-      for (const a of item.arquivos) {
-        if (typeof a === 'object' && a.storagePath) {
-          if (a.storage === 'r2') {
-            // R2: delete via API (requer Worker para produção; aqui só remove do Firestore)
-          } else if (fbStorage) {
-            await fbStorage.ref(a.storagePath).delete().catch(() => {});
-          }
-        }
+    if (deleteType === 'instrucao') {
+      const item = instrucoes.find(i => i.id === deleteId);
+      if (item?.arquivos?.length && fbStorage) {
+        for (const a of item.arquivos) { if (typeof a === 'object' && a.storagePath && a.storage !== 'r2') await fbStorage.ref(a.storagePath).delete().catch(() => {}); }
       }
+      await db.collection('instrucoes').doc(deleteId).delete();
+      showToast('Instrução excluída!', 'success');
+    } else {
+      await db.collection('tipos').doc(deleteId).delete();
+      showToast('Tipo excluído!', 'success');
     }
-    await db.collection('instrucoes').doc(deleteId).delete();
-    showToast('Instrução excluída!', 'success');
     closeModal('modal-delete');
   } catch (e) { showToast('Erro ao excluir: ' + e.message, 'error'); }
-  deleteId = null;
+  deleteId = null; deleteType = null;
 }
 
 // ================================================================
-// TABLE
+// TABLE INSTRUÇÕES
 // ================================================================
 function applyFilter() {
   filteredData = instrucoes.filter(i => currentFilter === 'todos' || i.status === currentFilter);
   currentPage = 1; renderTable();
 }
-
 function searchTable(q) {
   const lq = q.toLowerCase();
-  filteredData = instrucoes.filter(i =>
-    (currentFilter === 'todos' || i.status === currentFilter) &&
-    (i.tipoProcesso?.toLowerCase().includes(lq) || i.instrucao?.toLowerCase().includes(lq)));
+  filteredData = instrucoes.filter(i => (currentFilter === 'todos' || i.status === currentFilter) && (i.tipoProcesso?.toLowerCase().includes(lq) || i.instrucao?.toLowerCase().includes(lq)));
   currentPage = 1; renderTable();
 }
-
 function filterTab(el, f) {
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
   el.classList.add('active'); currentFilter = f; applyFilter();
 }
+
+const statusMap = { ativo: 'Ativo', rascunho: 'Rascunho', inativo: 'Inativo' };
 
 function renderTable() {
   const body = document.getElementById('table-body');
@@ -945,34 +871,110 @@ function renderTable() {
     const n = instrucoes.indexOf(item) + 1;
     const arqs = item.arquivos?.length || 0;
     const st = item.status || 'rascunho';
-    return `<div class="table-row" onclick="viewInstrucao('${item.id}')">
-      <span class="row-id">#${String(n).padStart(3, '0')}</span>
-      <span class="row-tipo">${ftipo(item.tipoProcesso)}</span>
-      <span class="row-instrucao">${item.instrucao || '—'}</span>
-      <span style="font-size:12px;color:var(--blue-mid);font-weight:500">${arqs > 0 ? '📎 ' + arqs + ' arquivo' + (arqs > 1 ? 's' : '') : '—'}</span>
-      <span><span class="status-badge ${st}"><span class="status-dot"></span>${statusMap[st] || st}</span></span>
+    return `<div class="table-row instrucoes-cols" onclick="viewInstrucao('${item.id}')">
+      <span class="row-id">#${String(n).padStart(3,'0')}</span>
+      <span class="row-nome">${item.tipoProcesso||'—'}</span>
+      <span class="row-instrucao">${item.instrucao||'—'}</span>
+      <span style="font-size:12px;color:var(--blue-mid);font-weight:500">${arqs>0?'📎 '+arqs+' arquivo'+(arqs>1?'s':''):'—'}</span>
+      <span><span class="status-badge ${st}"><span class="status-dot"></span>${statusMap[st]||st}</span></span>
       <span class="row-actions" onclick="event.stopPropagation()">
-        <button class="btn-icon btn-edit" onclick="openModal('edit','${item.id}')">
-          <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
-        </button>
-        <button class="btn-icon btn-del" onclick="askDelete('${item.id}')">
-          <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>
-        </button>
-      </span>
-    </div>`;
+        <button class="btn-icon btn-edit" onclick="openModal('edit','${item.id}')"><svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg></button>
+        <button class="btn-icon btn-del" onclick="askDelete('${item.id}','instrucao','')"><svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg></button>
+      </span></div>`;
   }).join('');
-
   const total = Math.ceil(filteredData.length / PER_PAGE);
   const pb = document.getElementById('page-btns');
   pb.innerHTML = '';
   if (total > 1) for (let i = 1; i <= total; i++) {
     const b = document.createElement('button');
     b.className = 'page-btn' + (i === currentPage ? ' active' : '');
-    b.textContent = i;
-    b.onclick = () => { currentPage = i; renderTable(); };
+    b.textContent = i; b.onclick = () => { currentPage = i; renderTable(); };
     pb.appendChild(b);
   }
-  document.getElementById('page-info').textContent = `Mostrando ${start + 1}–${Math.min(start + PER_PAGE, filteredData.length)} de ${filteredData.length}`;
+  document.getElementById('page-info').textContent = `Mostrando ${start+1}–${Math.min(start+PER_PAGE,filteredData.length)} de ${filteredData.length}`;
+}
+
+// ================================================================
+// VIEW INSTRUÇÃO
+// ================================================================
+function viewInstrucao(id) {
+  const item = instrucoes.find(i => i.id === id); if (!item) return;
+  viewingId = id;
+  const st = item.status || 'rascunho';
+  document.getElementById('view-tipo').textContent = item.tipoProcesso;
+  document.getElementById('view-badge').innerHTML = `<span class="status-badge ${st}"><span class="status-dot"></span>${statusMap[st]||st}</span>`;
+  const arqHtml = item.arquivos?.length
+    ? item.arquivos.map(a => { const n=typeof a==='string'?a:a.name; const u=typeof a==='object'?(a.url||'#'):'#'; const b=typeof a==='object'&&a.storage==='r2'?' <small style="color:#F6821F;font-size:10px">R2</small>':''; return `<a href="${u}" target="_blank" class="file-link">📎 ${n}${b}</a>`; }).join('')
+    : '<span style="color:#9ca3af;font-size:12px">Nenhum arquivo vinculado</span>';
+  const date = item.criadoEm?.toDate ? item.criadoEm.toDate().toLocaleDateString('pt-BR') : '—';
+  document.getElementById('view-body').innerHTML = `
+    <div class="detail-row"><span class="detail-label">Tipo</span><span class="detail-value">${item.tipoProcesso||'—'}</span></div>
+    <div class="detail-row"><span class="detail-label">Instrução</span><div class="detail-instrucao">${item.instrucao||'—'}</div></div>
+    <div class="detail-row"><span class="detail-label">Arquivos</span><div class="detail-value">${arqHtml}</div></div>
+    <div class="detail-row"><span class="detail-label">Criado em</span><span class="detail-value">${date}</span></div>`;
+  document.getElementById('modal-view').classList.add('open');
+}
+function editFromView() { closeModal('modal-view'); openModal('edit', viewingId); }
+
+// ================================================================
+// FILES
+// ================================================================
+function handleFiles(input) {
+  Array.from(input.files).forEach(file => {
+    if (pendingFiles.find(f => f.name === file.name)) return;
+    pendingFiles.push({ file, name: file.name, status: 'pending', url: null, storagePath: null });
+    renderFileItem(file.name, 'pending');
+  });
+  input.value = '';
+}
+function renderFileItem(name, status) {
+  document.querySelector(`#file-list [data-fname="${CSS.escape(name)}"]`)?.remove();
+  const list = document.getElementById('file-list');
+  const div = document.createElement('div');
+  div.className = 'file-item'; div.dataset.fname = name;
+  const badge = status==='saved'?`<span class="file-saved">✓ Salvo</span>`:status==='uploading'?`<span class="file-sending">⏳ Enviando...</span>`:'';
+  div.innerHTML = `<span class="file-item-name"><svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2" d="M15.172 7l-6.586 6.586a2 2 0 102.828 2.828l6.414-6.586a4 4 0 00-5.656-5.656l-6.415 6.585a6 6 0 108.486 8.486L20.5 13"/></svg><span>${name}</span></span>${badge}<button class="file-item-remove" onclick="removeFile('${name.replace(/'/g,"\\'")}')">×</button>`;
+  list.appendChild(div);
+}
+function removeFile(name) {
+  pendingFiles = pendingFiles.filter(f => f.name !== name);
+  existingFiles = existingFiles.filter(f => f.name !== name);
+  document.querySelector(`#file-list [data-fname="${CSS.escape(name)}"]`)?.remove();
+}
+
+async function uploadToR2(file, docId) {
+  const r2 = getR2Config();
+  if (!r2.accessKeyId || !r2.secretAccessKey || !r2.bucketName || !r2.accountId) return null;
+  const key = `instrucoes/${docId}/${Date.now()}_${file.name}`;
+  const endpoint = `https://${r2.accountId}.r2.cloudflarestorage.com`;
+  try {
+    if (!window.AWS) await new Promise((res, rej) => { const sc = document.createElement('script'); sc.src = 'https://cdnjs.cloudflare.com/ajax/libs/aws-sdk/2.1450.0/aws-sdk.min.js'; sc.onload = res; sc.onerror = rej; document.head.appendChild(sc); });
+    AWS.config.update({ accessKeyId: r2.accessKeyId, secretAccessKey: r2.secretAccessKey, region: 'auto', signatureVersion: 'v4' });
+    const s3 = new AWS.S3({ endpoint: new AWS.Endpoint(endpoint) });
+    await new Promise((res, rej) => { s3.putObject({ Bucket: r2.bucketName, Key: key, Body: file, ContentType: file.type || 'application/octet-stream' }, err => err ? rej(err) : res()); });
+    const publicUrl = r2.publicUrl ? r2.publicUrl.replace(/\/$/, '') + '/' + key : null;
+    return { url: publicUrl, storagePath: key, storage: 'r2' };
+  } catch (e) { showToast('R2 erro: ' + e.message, 'error'); return null; }
+}
+async function uploadToFirebase(file, docId) {
+  if (!fbStorage) return null;
+  const path = `instrucoes/${docId}/${Date.now()}_${file.name}`;
+  const ref = fbStorage.ref(path);
+  await ref.put(file);
+  const url = await ref.getDownloadURL();
+  return { url, storagePath: path, storage: 'firebase' };
+}
+async function uploadFile(file, docId) {
+  const r2 = getR2Config();
+  return r2.accessKeyId && r2.bucketName ? await uploadToR2(file, docId) : await uploadToFirebase(file, docId);
+}
+async function uploadPendingFiles(docId) {
+  for (const f of pendingFiles) {
+    if (f.status !== 'pending') continue;
+    renderFileItem(f.name, 'uploading');
+    try { const r = await uploadFile(f.file, docId); if (r) { f.url=r.url; f.storagePath=r.storagePath; f.storageType=r.storage; f.status='uploaded'; renderFileItem(f.name,'saved'); } }
+    catch (e) { showToast('Erro upload ' + f.name + ': ' + e.message, 'error'); }
+  }
 }
 
 // ================================================================
@@ -983,52 +985,51 @@ function updateDashboard() {
   const ativas = instrucoes.filter(i => i.status === 'ativo').length;
   const rascunhos = instrucoes.filter(i => i.status === 'rascunho').length;
   const inativas = instrucoes.filter(i => i.status === 'inativo').length;
-  const arqs = instrucoes.reduce((a, i) => a + (i.arquivos?.length || 0), 0);
   document.getElementById('stat-total').textContent = total;
   document.getElementById('stat-ativas').textContent = ativas;
   document.getElementById('stat-rascunhos').textContent = rascunhos;
-  document.getElementById('stat-arquivos').textContent = arqs;
-
-  const tipos = {};
-  instrucoes.forEach(i => { if (i.tipoProcesso) tipos[i.tipoProcesso] = (tipos[i.tipoProcesso] || 0) + 1; });
-  const mx = Math.max(...Object.values(tipos), 1);
-  document.getElementById('chart-tipos').innerHTML = Object.entries(tipos).sort((a, b) => b[1] - a[1])
-    .map(([t, n]) => `<div class="bar-item"><span class="bar-label">${ftipo(t)}</span><div class="bar-track"><div class="bar-fill" style="width:${Math.round(n / mx * 100)}%"></div></div><span class="bar-count">${n}</span></div>`)
-    .join('') || '<p style="color:#9ca3af;font-size:13px">Sem dados</p>';
-
-  const sd = [{ l: 'Ativas', v: ativas, c: '#27ae60' }, { l: 'Rascunhos', v: rascunhos, c: '#f39c12' }, { l: 'Inativas', v: inativas, c: '#e74c3c' }].filter(s => s.v > 0);
-  document.getElementById('chart-status').innerHTML = sd.map(s =>
-    `<div class="donut-item"><span class="donut-dot" style="background:${s.c}"></span><span class="donut-name">${s.l}</span><span class="donut-val">${s.v}</span><span class="donut-pct">${total ? Math.round(s.v / total * 100) + '%' : ''}</span></div>`
-  ).join('') || '<p style="color:#9ca3af;font-size:13px">Sem dados</p>';
+  document.getElementById('stat-tipos').textContent = tipos.length;
+  const tiposData = {};
+  instrucoes.forEach(i => { if (i.tipoProcesso) tiposData[i.tipoProcesso] = (tiposData[i.tipoProcesso]||0)+1; });
+  const mx = Math.max(...Object.values(tiposData), 1);
+  document.getElementById('chart-tipos').innerHTML = Object.entries(tiposData).sort((a,b)=>b[1]-a[1]).map(([t,n])=>`<div class="bar-item"><span class="bar-label">${t}</span><div class="bar-track"><div class="bar-fill" style="width:${Math.round(n/mx*100)}%"></div></div><span class="bar-count">${n}</span></div>`).join('') || '<p style="color:#9ca3af;font-size:13px">Sem dados</p>';
+  const sd = [{l:'Ativas',v:ativas,c:'#27ae60'},{l:'Rascunhos',v:rascunhos,c:'#f39c12'},{l:'Inativas',v:inativas,c:'#e74c3c'}].filter(s=>s.v>0);
+  document.getElementById('chart-status').innerHTML = sd.map(s=>`<div class="donut-item"><span class="donut-dot" style="background:${s.c}"></span><span class="donut-name">${s.l}</span><span class="donut-val">${s.v}</span><span class="donut-pct">${total?Math.round(s.v/total*100)+'%':''}</span></div>`).join('') || '<p style="color:#9ca3af;font-size:13px">Sem dados</p>';
 }
 
 // ================================================================
 // PAGES
 // ================================================================
+function handleNewBtn() {
+  if (currentPage_ === 'instrucoes') openModal('create');
+  else if (currentPage_ === 'tipos') openModalTipo('create');
+}
+
 function showPage(p) {
+  currentPage_ = p;
   document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
   document.querySelectorAll('.nav-item').forEach(el => el.classList.remove('active'));
-  document.getElementById('page-' + p).classList.add('active');
-  document.getElementById('nav-' + p).classList.add('active');
-  const titles = { instrucoes: 'Instruções', dashboard: 'Dashboard', config: 'Configurações' };
+  document.getElementById('page-'+p).classList.add('active');
+  document.getElementById('nav-'+p).classList.add('active');
+  const titles = { instrucoes:'Instruções', tipos:'Tipos de Processo', dashboard:'Dashboard', config:'Configurações' };
+  const btnLabels = { instrucoes:'Nova Instrução', tipos:'Novo Tipo', dashboard:'', config:'' };
   document.getElementById('page-title').textContent = titles[p];
-  document.getElementById('btn-new').style.display = p === 'instrucoes' ? '' : 'none';
-  document.getElementById('page-subtitle').textContent = p === 'instrucoes' ? instrucoes.length + ' registros encontrados' : '';
-  if (p === 'dashboard') updateDashboard();
-  if (p === 'config') { loadFbInputs(); loadR2Inputs(); }
+  document.getElementById('btn-new').style.display = (p==='instrucoes'||p==='tipos') ? '' : 'none';
+  document.getElementById('btn-new-label').textContent = btnLabels[p] || '';
+  document.getElementById('page-subtitle').textContent = p==='instrucoes' ? instrucoes.length+' registros encontrados' : p==='tipos' ? tipos.length+' tipos cadastrados' : '';
+  if (p==='dashboard') updateDashboard();
+  if (p==='config') { loadFbInputs(); loadR2Inputs(); }
+  if (p==='tipos') renderTipos();
 }
 
 // ================================================================
 // UTILS
 // ================================================================
-function ftipo(t) {
-  const m = { TRABALHISTA: 'Trabalhista', PREVIDENCIARIO: 'Previdenciário', CIVIL: 'Civil', CRIMINAL: 'Criminal', TRIBUTARIO: 'Tributário', ADMINISTRATIVO: 'Administrativo', CONSUMIDOR: 'Consumidor', FAMILIA: 'Família', IMOBILIARIO: 'Imobiliário', EMPRESARIAL: 'Empresarial' };
-  return m[t] || t || '—';
-}
+function closeModal(id) { document.getElementById(id).classList.remove('open'); }
 
-function showToast(msg, type = 'success') {
+function showToast(msg, type='success') {
   const t = document.getElementById('toast');
-  t.textContent = msg; t.className = 'toast ' + type + ' show';
+  t.textContent = msg; t.className = 'toast '+type+' show';
   setTimeout(() => t.classList.remove('show'), 3500);
 }
 
