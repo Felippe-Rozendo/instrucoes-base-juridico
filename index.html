@@ -131,15 +131,7 @@ textarea.field-input { resize: vertical; min-height: 160px; line-height: 1.6; }
 .file-link { display: inline-flex; align-items: center; gap: 6px; color: var(--blue-mid); font-size: 12px; text-decoration: none; padding: 5px 10px; background: rgba(74,127,167,0.08); border-radius: 6px; margin: 3px 0; transition: background .2s; }
 .file-link:hover { background: rgba(74,127,167,0.18); }
 
-/* TIPOS — GRID DE CARDS */
-.tipos-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 12px; margin-top: 4px; }
-.tipo-card { background: var(--white); border-radius: var(--radius); padding: 16px 18px; box-shadow: var(--shadow); display: flex; align-items: center; justify-content: space-between; gap: 10px; border: 1.5px solid transparent; transition: border-color .2s; }
-.tipo-card:hover { border-color: var(--blue-light); }
-.tipo-card-name { font-size: 14px; font-weight: 600; color: var(--navy); flex: 1; }
-.tipo-card-badge { font-size: 10px; color: var(--blue-mid); background: rgba(74,127,167,0.1); padding: 2px 8px; border-radius: 10px; font-weight: 600; flex-shrink: 0; }
-.tipo-card-actions { display: flex; gap: 6px; flex-shrink: 0; }
-.tipo-card.tem-instrucao { border-left: 3px solid var(--green); }
-.tipo-card.sem-instrucao { border-left: 3px solid var(--blue-light); }
+/* TIPOS — sem uso (removido grid de cards) */
 
 /* DASHBOARD */
 .stats-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-bottom: 24px; }
@@ -279,8 +271,13 @@ textarea.field-input { resize: vertical; min-height: 160px; line-height: 1.6; }
         <input type="text" placeholder="Buscar tipo..." oninput="searchTipos(this.value)">
       </div>
     </div>
-    <div id="tipos-grid" class="tipos-grid">
-      <div class="loading"><div class="spinner"></div> Carregando...</div>
+    <div class="table-card">
+      <div class="table-head" style="grid-template-columns: 60px 1fr 160px 100px; display:grid;">
+        <span>#</span><span>Nome do Tipo</span><span>Instrução</span><span>Ações</span>
+      </div>
+      <div id="tipos-body">
+        <div class="loading"><div class="spinner"></div> Carregando...</div>
+      </div>
     </div>
   </div>
 
@@ -632,7 +629,7 @@ async function initFirebase() {
 // TIPOS — CRUD
 // ================================================================
 function renderTipos() {
-  const grid = document.getElementById('tipos-grid');
+  const body = document.getElementById('tipos-body');
   const data = filteredTipos;
 
   // Estatísticas
@@ -642,16 +639,22 @@ function renderTipos() {
   document.getElementById('tipos-sem-instrucao').textContent = tipos.length - tiposComInstrucao.length;
 
   if (!data.length) {
-    grid.innerHTML = `<div class="empty-state" style="grid-column:1/-1"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" style="width:48px;height:48px;color:var(--blue-light);margin-bottom:16px"><path stroke-width="1.5" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A2 2 0 013 12V7a4 4 0 014-4z"/></svg><h3>Nenhum tipo cadastrado</h3><p>Crie um tipo de processo para começar.</p></div>`;
+    body.innerHTML = `<div class="empty-state"><svg fill="none" viewBox="0 0 24 24" stroke="currentColor" style="width:48px;height:48px;color:var(--blue-light);margin-bottom:16px"><path stroke-width="1.5" d="M7 7h.01M7 3h5c.512 0 1.024.195 1.414.586l7 7a2 2 0 010 2.828l-7 7a2 2 0 01-2.828 0l-7-7A2 2 0 013 12V7a4 4 0 014-4z"/></svg><h3>Nenhum tipo cadastrado</h3><p>Crie um tipo de processo para começar.</p></div>`;
     return;
   }
 
-  grid.innerHTML = data.map(t => {
+  body.innerHTML = data.map((t, idx) => {
     const temInstrucao = instrucoes.some(i => normalizar(i.tipoProcesso) === normalizar(t.nome));
-    return `<div class="tipo-card ${temInstrucao ? 'tem-instrucao' : 'sem-instrucao'}">
-      <span class="tipo-card-name">${t.nome}</span>
-      <span class="tipo-card-badge" title="${temInstrucao ? 'Tem instrução cadastrada' : 'Sem instrução'}">${temInstrucao ? '✓ Com instrução' : 'Sem instrução'}</span>
-      <span class="tipo-card-actions">
+    const n = tipos.indexOf(t) + 1;
+    return `<div class="table-row" style="grid-template-columns: 60px 1fr 160px 100px; display:grid;">
+      <span class="row-id">#${String(n).padStart(3,'0')}</span>
+      <span class="row-nome">${t.nome}</span>
+      <span>
+        <span class="status-badge ${temInstrucao ? 'ativo' : 'rascunho'}">
+          <span class="status-dot"></span>${temInstrucao ? 'Com instrução' : 'Sem instrução'}
+        </span>
+      </span>
+      <span class="row-actions" onclick="event.stopPropagation()">
         <button class="btn-icon btn-edit" title="Editar" onclick="openModalTipo('edit','${t.id}')">
           <svg width="13" height="13" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"/></svg>
         </button>
