@@ -811,11 +811,18 @@ async function saveInstrucao() {
 // DELETE
 // ================================================================
 function askDelete(id, type, nome) {
+  if (type === 'tipo') {
+    const instrucaoVinculada = instrucoes.find(i => normalizar(i.tipoProcesso) === normalizar(nome));
+    if (instrucaoVinculada) {
+      showToast(`Exclua primeiro a instrução do tipo "${nome}" antes de excluir o tipo.`, 'error');
+      return;
+    }
+  }
   deleteId = id; deleteType = type;
   const titleMap = { instrucao: 'Excluir Instrução', tipo: 'Excluir Tipo de Processo' };
   const descMap = {
     instrucao: 'Esta ação remove o registro e todos os arquivos vinculados. Não pode ser desfeita.',
-    tipo: `Excluir o tipo "<strong>${nome}</strong>"? Se houver uma instrução vinculada a este tipo, ela não será excluída automaticamente.`
+    tipo: `Excluir o tipo "<strong>${nome}</strong>"? Esta ação não pode ser desfeita.`
   };
   document.getElementById('delete-title').textContent = titleMap[type];
   document.getElementById('delete-desc').innerHTML = descMap[type];
