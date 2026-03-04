@@ -916,6 +916,7 @@ service cloud.firestore {
       <button class="btn-close" onclick="closeModal('modal-temp-pass')">×</button>
     </div>
     <div class="modal-body">
+      <div id="temp-email-status" style="font-size:12px;border-radius:8px;padding:12px 14px;line-height:1.5;margin-bottom:16px">—</div>
       <div class="temp-pass-box">
         <div class="temp-pass-label">Senha temporária para</div>
         <div style="font-size:14px;font-weight:600;color:var(--navy);margin:4px 0" id="temp-nome">—</div>
@@ -923,10 +924,10 @@ service cloud.firestore {
         <div class="temp-pass-display" id="temp-password-display">—</div>
         <div class="temp-pass-label">O usuário deverá alterar a senha no primeiro acesso</div>
       </div>
-      <div style="display:flex;gap:8px;margin-top:4px">
-        <button class="btn-cancel" style="flex:1;justify-content:center" onclick="copyTempPass()">📋 Copiar Senha</button>
-        <div style="font-size:11px;color:#9ca3af;background:rgba(243,156,18,0.07);border-radius:8px;padding:10px;line-height:1.5;flex:1">
-          💬 Para envio via SMS/WhatsApp, copie a senha e envie manualmente para o telefone cadastrado.
+      <div style="display:flex;gap:8px;margin-top:8px">
+        <button class="btn-cancel" style="flex:1;text-align:center;justify-content:center" onclick="copyTempPass()">📋 Copiar Senha</button>
+        <div style="font-size:11px;color:#9ca3af;background:rgba(74,127,167,0.06);border-radius:8px;padding:10px;line-height:1.5;flex:1">
+          💬 Guarde a senha como backup caso o e-mail caia no spam ou não seja recebido.
         </div>
       </div>
     </div>
@@ -1566,9 +1567,20 @@ async function confirmarAprovacao() {
     await secAuth.signOut();
     await db.collection('dashboardUsers').doc(uid).set({ nome: s.nome, email: s.email, telefone: s.telefone, tipo, primeiroLogin: true, ativo: true, criadoEm: firebase.firestore.FieldValue.serverTimestamp() });
     await db.collection('solicitacoes').doc(id).update({ status: 'aprovado' });
+
+    // Envia e-mail de redefinição de senha via Firebase (gratuito)
+    btn.textContent = 'Enviando e-mail...';
+    let emailEnviado = false;
+    try {
+      await fbAuth.sendPasswordResetEmail(s.email);
+      emailEnviado = true;
+    } catch (emailErr) {
+      console.warn('Falha ao enviar e-mail:', emailErr.message);
+    }
+
     closeModal('modal-aprovar');
-    showTempPasswordInfo(s.nome, s.email, tempPass);
-    showToast('Usuário aprovado e conta criada!', 'success');
+    showTempPasswordInfo(s.nome, s.email, tempPass, emailEnviado);
+    showToast(emailEnviado ? 'Conta criada e e-mail enviado!' : 'Conta criada! Compartilhe a senha manualmente.', emailEnviado ? 'success' : 'info');
   } catch (e) { showToast('Erro: ' + e.message, 'error'); }
   finally { btn.disabled = false; btn.innerHTML = '<svg width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-width="2.5" d="M5 13l4 4L19 7"/></svg> Aprovar e Criar Acesso'; if (secondaryApp) await secondaryApp.delete().catch(()=>{}); }
 }
@@ -1580,10 +1592,24 @@ async function rejeitarSolicitacao(id) {
   } catch (e) { showToast('Erro: ' + e.message, 'error'); }
 }
 
-function showTempPasswordInfo(nome, email, tempPass) {
+function showTempPasswordInfo(nome, email, tempPass, emailEnviado) {
   document.getElementById('temp-nome').textContent = nome;
   document.getElementById('temp-email').textContent = email;
   document.getElementById('temp-password-display').textContent = tempPass;
+  const statusEl = document.getElementById('temp-email-status');
+  if (statusEl) {
+    if (emailEnviado) {
+      statusEl.innerHTML = '✅ E-mail de acesso enviado para <strong>' + email + '</strong>. O usuário deve verificar a caixa de entrada (e spam).';
+      statusEl.style.background = 'rgba(39,174,96,0.08)';
+      statusEl.style.borderLeft = '3px solid var(--green)';
+      statusEl.style.color = '#1a6b3a';
+    } else {
+      statusEl.innerHTML = '⚠️ Não foi possível enviar o e-mail automaticamente. Compartilhe a senha temporária acima manualmente.';
+      statusEl.style.background = 'rgba(243,156,18,0.08)';
+      statusEl.style.borderLeft = '3px solid var(--orange)';
+      statusEl.style.color = '#92690a';
+    }
+  }
   document.getElementById('modal-temp-pass').classList.add('open');
 }
 
@@ -1671,9 +1697,19 @@ async function saveDashboardUser() {
         const uid = cred.user.uid;
         await secAuth.signOut();
         await db.collection('dashboardUsers').doc(uid).set({ nome, email, telefone, tipo, primeiroLogin: true, ativo: true, criadoEm: firebase.firestore.FieldValue.serverTimestamp() });
+
+        // Envia e-mail de redefinição de senha via Firebase
+        let emailEnviado = false;
+        try {
+          await fbAuth.sendPasswordResetEmail(email);
+          emailEnviado = true;
+        } catch (emailErr) {
+          console.warn('Falha ao enviar e-mail:', emailErr.message);
+        }
+
         closeModal('modal-dashboard-user');
-        showTempPasswordInfo(nome, email, tempPass);
-        showToast('Usuário criado!', 'success');
+        showTempPasswordInfo(nome, email, tempPass, emailEnviado);
+        showToast(emailEnviado ? 'Usuário criado e e-mail enviado!' : 'Usuário criado! Compartilhe a senha manualmente.', emailEnviado ? 'success' : 'info');
       } finally {
         if (secondaryApp) await secondaryApp.delete().catch(()=>{});
       }
