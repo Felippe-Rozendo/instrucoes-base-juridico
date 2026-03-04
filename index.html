@@ -1232,6 +1232,56 @@ function generateTempPassword() {
 }
 
 // ================================================================
+// SEED ADMIN
+// ================================================================
+async function seedAdminUser() {
+  if (!db || !window.firebase) return;
+  const ADMIN_EMAIL = 'admin@gmail.com';
+  const ADMIN_PASS  = '123456';
+
+  try {
+    // Verifica se já existe no dashboardUsers
+    const snap = await db.collection('dashboardUsers').where('email', '==', ADMIN_EMAIL).get();
+    if (!snap.empty) return; // já existe, nada a fazer
+
+    // Cria via secondary app para não deslogar sessão atual
+    let secondaryApp;
+    try {
+      secondaryApp = firebase.initializeApp(getFbConfig(), 'adminSeed_' + Date.now());
+      const secAuth = secondaryApp.auth();
+      let uid;
+      try {
+        const cred = await secAuth.createUserWithEmailAndPassword(ADMIN_EMAIL, ADMIN_PASS);
+        uid = cred.user.uid;
+      } catch (e) {
+        if (e.code === 'auth/email-already-in-use') {
+          // Auth já tem o usuário, só falta o doc no Firestore — busca o UID fazendo login
+          const cred = await secAuth.signInWithEmailAndPassword(ADMIN_EMAIL, ADMIN_PASS);
+          uid = cred.user.uid;
+        } else { throw e; }
+      }
+      await secAuth.signOut();
+
+      await db.collection('dashboardUsers').doc(uid).set({
+        nome: 'Admin',
+        email: ADMIN_EMAIL,
+        telefone: '',
+        tipo: 'gestor',
+        primeiroLogin: false,
+        ativo: true,
+        criadoEm: firebase.firestore.FieldValue.serverTimestamp()
+      });
+      console.log('[eJurídico] Usuário admin criado com sucesso.');
+    } finally {
+      if (secondaryApp) await secondaryApp.delete().catch(() => {});
+    }
+  } catch (e) {
+    // Silencioso — não bloqueia o fluxo
+    console.warn('[eJurídico] seedAdminUser:', e.message);
+  }
+}
+
+// ================================================================
 // FIREBASE INIT
 // ================================================================
 function loadSDK() {
@@ -1261,6 +1311,9 @@ async function initFirebase() {
     fbAuth = firebase.auth();
     if (c.storageBucket) fbStorage = firebase.storage();
     setBadge('firebase', true, 'Conectado');
+
+    // Seed admin user se ainda não existir
+    seedAdminUser();
 
     // Auth state observer
     fbAuth.onAuthStateChanged(async (user) => {
